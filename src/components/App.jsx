@@ -6,6 +6,7 @@ import { ContactForm } from 'components/ContactForm/';
 import { ContactList } from 'components/ContactList/';
 import { useState } from 'react';
 import { useLocalStorage } from 'hooks/useLocalStorage';
+import { useEffect } from 'react';
 
 export function App() {
   const [contacts, setContacts] = useLocalStorage(
@@ -36,13 +37,13 @@ export function App() {
     setFilterWord(event.currentTarget.value);
   };
 
-  const getVisibleContacts = () => {
-    const normalizedFilter = filterWord.toLowerCase();
-    console.log(contacts);
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
+  useEffect(() => {
+    setContacts(prevState =>
+      prevState.filter(contact =>
+        contact.name.toLowerCase().includes(filterWord.toLowerCase())
+      )
     );
-  };
+  }, [filterWord, setContacts]);
 
   return (
     <Form>
@@ -50,10 +51,7 @@ export function App() {
       <ContactForm submitProp={formSubmitHandler} />
       <h2>Contacts</h2>
       <Filter filter={filterWord} onChange={changeFilter} />
-      <ContactList
-        contacts={getVisibleContacts()}
-        onDeleteContact={deleteContact}
-      />
+      <ContactList contacts={contacts} onDeleteContact={deleteContact} />
     </Form>
   );
 }
