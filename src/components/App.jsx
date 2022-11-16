@@ -16,7 +16,7 @@ export function App() {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ]
   );
-  const [filter, setFilter] = useState('');
+  const [filterWord, setFilterWord] = useState('');
 
   const deleteContact = contactId => {
     setContacts(prevState =>
@@ -33,11 +33,12 @@ export function App() {
   };
 
   const changeFilter = event => {
-    setFilter(event.currentTarget.value);
+    setFilterWord(event.currentTarget.value);
   };
 
   const getVisibleContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
+    const normalizedFilter = filterWord.toLowerCase();
+    console.log(contacts);
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
@@ -48,7 +49,7 @@ export function App() {
       <h1>Phonebook </h1>
       <ContactForm submitProp={formSubmitHandler} />
       <h2>Contacts</h2>
-      <Filter filter={filter} onChange={changeFilter} />
+      <Filter filter={filterWord} onChange={changeFilter} />
       <ContactList
         contacts={getVisibleContacts()}
         onDeleteContact={deleteContact}
