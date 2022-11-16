@@ -46,7 +46,7 @@ export function App() {
         contact.name.toLowerCase().includes(filterWord.toLowerCase())
       )
     );
-  }, [filterWord, setContacts]);
+  }, [filterWord]);
 
   console.log(contacts);
 
