@@ -38,12 +38,17 @@ export function App() {
   };
 
   useEffect(() => {
+    if (filterWord === '') {
+      return;
+    }
     setContacts(prevState =>
       prevState.filter(contact =>
         contact.name.toLowerCase().includes(filterWord.toLowerCase())
       )
     );
   }, [filterWord, setContacts]);
+
+  console.log(contacts);
 
   return (
     <Form>
