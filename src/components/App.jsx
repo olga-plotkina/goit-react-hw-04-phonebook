@@ -29,11 +29,10 @@ export function App() {
   };
 
   function countReducer(state, action) {
+    let newState;
     switch (action.type) {
       case 'add':
-        const newState = state.find(
-          contact => contact.name === action.payload.name
-        )
+        newState = state.find(contact => contact.name === action.payload.name)
           ? alert(`${action.payload.name} is already in contacts`)
           : [
               ...state,
@@ -47,7 +46,9 @@ export function App() {
         return newState;
 
       case 'delete':
-        return state.filter(contact => contact.id !== action.payload.id);
+        newState = state.filter(contact => contact.id !== action.payload.id);
+        window.localStorage.setItem('contacts', JSON.stringify(newState));
+        return newState;
       default:
         throw new Error(`Unsupported action type ${action.type}`);
     }
