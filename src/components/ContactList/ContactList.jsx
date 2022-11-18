@@ -3,10 +3,14 @@ import { StyledContacts, ContactsItem } from './ContactList.styled';
 
 export const ContactList = ({ contacts, onDeleteContact }) => (
   <StyledContacts>
-    {contacts.map(({ id, name, number }) => (
-      <ContactsItem key={id}>
-        {name}: {number}
-        <button onClick={() => onDeleteContact(id)}>Delete</button>
+    {contacts.map(contact => (
+      <ContactsItem key={contact.id}>
+        {contact.name}: {contact.number}
+        <button
+          onClick={() => onDeleteContact({ type: 'delete', payload: contact })}
+        >
+          Delete
+        </button>
       </ContactsItem>
     ))}
   </StyledContacts>

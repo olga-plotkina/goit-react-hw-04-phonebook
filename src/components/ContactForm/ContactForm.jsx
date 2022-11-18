@@ -22,7 +22,7 @@ export function ContactForm({ submitProp }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    submitProp({ name, number });
+    submitProp({ type: 'add', payload: { name, number } });
     setName('');
     setNumber('');
   };
